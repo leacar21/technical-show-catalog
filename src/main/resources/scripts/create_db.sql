@@ -1,6 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS `show` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE theaters;
+USE `show`;
 
 CREATE TABLE IF NOT EXISTS `show`
 (
@@ -11,6 +11,17 @@ CREATE TABLE IF NOT EXISTS `show`
     `enabled` bit(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE KEY UK_show_code (code)
+) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `auditorium_function_layout`
+(
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `version` BIGINT NOT NULL,
+    `code` BINARY(16) NOT NULL,
+    `name` VARCHAR(128) NOT NULL,
+    `auditorium_code` BINARY(16) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY UK_auditorium_function_layout_code (code)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `function`
@@ -26,17 +37,6 @@ CREATE TABLE IF NOT EXISTS `function`
     CONSTRAINT `FK_function_auditorium_function_layout` FOREIGN KEY (`auditorium_function_layout_id`) REFERENCES `auditorium_function_layout` (`id`),
     PRIMARY KEY (`id`),
     UNIQUE KEY UK_function_code (code)
-) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `auditorium_function_layout`
-(
-    `id` BIGINT NOT NULL AUTO_INCREMENT,
-    `version` BIGINT NOT NULL,
-    `code` BINARY(16) NOT NULL,
-    `name` VARCHAR(128) NOT NULL,
-    `auditorium_code` BINARY(16) NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY UK_auditorium_function_layout_code (code)
 ) DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `section`
