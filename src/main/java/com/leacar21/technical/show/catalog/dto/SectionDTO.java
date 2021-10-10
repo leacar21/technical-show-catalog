@@ -1,7 +1,6 @@
 package com.leacar21.technical.show.catalog.dto;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +19,6 @@ public class SectionDTO {
 
     private BigDecimal seatPrice;
 
-    private List<SectionSeatDTO> sectionSeat;
+    // private List<SectionSeatDTO> sectionSeat;
 
 }

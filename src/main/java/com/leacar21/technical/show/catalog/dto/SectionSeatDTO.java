@@ -1,5 +1,7 @@
 package com.leacar21.technical.show.catalog.dto;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +15,11 @@ public class SectionSeatDTO {
 
     private String code;
 
+    @NotNull
     private Boolean available;
 
     private String seatCode;
+
+    private String sectionCode;
 
 }

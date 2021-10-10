@@ -10,8 +10,8 @@ import com.leacar21.technical.show.catalog.persistence.model.Show;
 
 public interface ShowRepository extends JpaRepository<Show, Long> {
 
-    public Optional<Show> findByCode(UUID code);
+    Optional<Show> findByCode(UUID code);
 
-    public List<Show> findByEnabled(boolean enabled);
+    List<Show> findByEnabled(boolean enabled);
 
 }

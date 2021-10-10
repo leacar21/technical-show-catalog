@@ -1,5 +1,6 @@
 package com.leacar21.technical.show.catalog.services.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class ShowCatalogServiceImpl implements ShowCatalogService {
     @Override
     @Transactional(readOnly = true)
     @Cacheable(value = "shows", unless = "#result.size() == 0")
-    public List<ShowDTO> getAll(Boolean enabled) {
+    public List<ShowDTO> getAll(Boolean enabled, Date functionDateFrom, Date functionDateTo) {
         List<Show> listTheater = null;
         if (enabled == null) {
             listTheater = this.showDAO.findAll();
