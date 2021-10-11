@@ -7,6 +7,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,8 +35,8 @@ public class ShowCatalogController {
     @ResponseStatus(HttpStatus.OK)
     public List<ShowDTO> getAll( //
             @RequestParam(value = "enabled", required = false) Boolean enabled, //
-            @RequestParam(value = "functionDateFrom", required = false) Date functionDateFrom, //
-            @RequestParam(value = "functionDateTo", required = false) Date functionDateTo, //
+            @RequestParam(value = "functionDateFrom", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date functionDateFrom, //
+            @RequestParam(value = "functionDateTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Date functionDateTo, //
             @RequestParam(value = "seatPriceFrom", required = false) BigDecimal seatPriceFrom, //
             @RequestParam(value = "seatPriceTo", required = false) BigDecimal seatPriceTo, //
             @RequestParam(value = "orderBy", required = false) ShowOrderBy orderBy, //
