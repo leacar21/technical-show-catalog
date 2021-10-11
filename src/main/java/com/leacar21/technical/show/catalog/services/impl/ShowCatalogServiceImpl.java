@@ -44,44 +44,7 @@ public class ShowCatalogServiceImpl implements ShowCatalogService {
         return resultListShowDTO;
     }
 
-    private List<ShowDTO> sortResults(ShowOrderBy orderBy, OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
-        switch (orderBy) {
-            case NAME:
-                return sortResultsByName(orderDirection, listShowDTO);
-            case FUNCTION_DATE:
-                return sortResultsByDate(orderDirection, listShowDTO);
-            case FUNCTION_SECTION_PRICE:
-                return sortResultsBySectionPrice(orderDirection, listShowDTO);
-            default:
-                return listShowDTO;
-        }
-    }
-
-    private List<ShowDTO> sortResultsByName(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
-        if (OrderDirection.DESC.equals(orderDirection)) {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getName).reversed()).collect(Collectors.toList());
-        } else {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getName)).collect(Collectors.toList());
-        }
-    }
-
-    private List<ShowDTO> sortResultsBySectionPrice(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
-        if (OrderDirection.DESC.equals(orderDirection)) {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getMaxFunctionPrice).reversed()).collect(Collectors.toList());
-        } else {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getMinFunctionPrice)).collect(Collectors.toList());
-        }
-    }
-
-    private List<ShowDTO> sortResultsByDate(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
-        if (OrderDirection.DESC.equals(orderDirection)) {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getNextFunctionDate).reversed()).collect(Collectors.toList());
-        } else {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getNextFunctionDate)).collect(Collectors.toList());
-        }
-    }
-
-    // ----------------
+    // =============================
 
     private List<ShowDTO> filterResults(Date functionDateFrom, Date functionDateTo, BigDecimal seatPriceFrom, BigDecimal seatPriceTo,
             List<ShowDTO> listShowDTO) {
@@ -133,6 +96,45 @@ public class ShowCatalogServiceImpl implements ShowCatalogService {
     private boolean satisfyPriceTo(BigDecimal seatPriceTo, FunctionDTO functionDTO) {
         return (seatPriceTo == null) || functionDTO.getAuditoriumFunctionLayout().getSections().stream() //
                 .anyMatch(s -> s.getSeatPrice().compareTo(seatPriceTo) <= 0);
+    }
+
+    // =============================
+
+    private List<ShowDTO> sortResults(ShowOrderBy orderBy, OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
+        switch (orderBy) {
+            case NAME:
+                return sortResultsByName(orderDirection, listShowDTO);
+            case FUNCTION_DATE:
+                return sortResultsByDate(orderDirection, listShowDTO);
+            case FUNCTION_SECTION_PRICE:
+                return sortResultsBySectionPrice(orderDirection, listShowDTO);
+            default:
+                return listShowDTO;
+        }
+    }
+
+    private List<ShowDTO> sortResultsByName(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
+        if (OrderDirection.DESC.equals(orderDirection)) {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getName).reversed()).collect(Collectors.toList());
+        } else {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getName)).collect(Collectors.toList());
+        }
+    }
+
+    private List<ShowDTO> sortResultsBySectionPrice(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
+        if (OrderDirection.DESC.equals(orderDirection)) {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getMaxFunctionPrice).reversed()).collect(Collectors.toList());
+        } else {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getMinFunctionPrice)).collect(Collectors.toList());
+        }
+    }
+
+    private List<ShowDTO> sortResultsByDate(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
+        if (OrderDirection.DESC.equals(orderDirection)) {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getNextFunctionDate).reversed()).collect(Collectors.toList());
+        } else {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getNextFunctionDate)).collect(Collectors.toList());
+        }
     }
 
 }
