@@ -21,7 +21,7 @@ import com.leacar21.technical.show.catalog.dto.SectionSeatDTO;
 import com.leacar21.technical.show.catalog.services.SectionSeatService;
 
 @RestController()
-@RequestMapping("section-seat")
+@RequestMapping("section-seats")
 public class SectionSeatController {
 
     Logger log = LoggerFactory.getLogger(SectionSeatController.class);
