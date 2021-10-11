@@ -1,9 +1,11 @@
 package com.leacar21.technical.show.catalog.services.impl;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,53 @@ public class ShowCatalogServiceImpl implements ShowCatalogService {
             BigDecimal seatPriceTo, ShowOrderBy orderBy, OrderDirection orderDirection) {
         var listShowDTO = this.showCatalogInternalService.getAll(enabled);
 
+        var resultListShowDTO = this.filterResults(functionDateFrom, functionDateTo, seatPriceFrom, seatPriceTo, listShowDTO);
+        resultListShowDTO = this.sortResults(orderBy, orderDirection, resultListShowDTO);
+
+        return resultListShowDTO;
+    }
+
+    private List<ShowDTO> sortResults(ShowOrderBy orderBy, OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
+        switch (orderBy) {
+            case NAME:
+                return sortResultsByName(orderDirection, listShowDTO);
+            case FUNCTION_DATE:
+                return sortResultsByDate(orderDirection, listShowDTO);
+            case FUNCTION_SECTION_PRICE:
+                return sortResultsBySectionPrice(orderDirection, listShowDTO);
+            default:
+                return listShowDTO;
+        }
+    }
+
+    private List<ShowDTO> sortResultsByName(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
+        if (OrderDirection.DESC.equals(orderDirection)) {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getName).reversed()).collect(Collectors.toList());
+        } else {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getName)).collect(Collectors.toList());
+        }
+    }
+
+    private List<ShowDTO> sortResultsBySectionPrice(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
+        if (OrderDirection.DESC.equals(orderDirection)) {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getMaxFunctionPrice).reversed()).collect(Collectors.toList());
+        } else {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getMinFunctionPrice)).collect(Collectors.toList());
+        }
+    }
+
+    private List<ShowDTO> sortResultsByDate(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
+        if (OrderDirection.DESC.equals(orderDirection)) {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getNextFunctionDate).reversed()).collect(Collectors.toList());
+        } else {
+            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getNextFunctionDate)).collect(Collectors.toList());
+        }
+    }
+
+    // ----------------
+
+    private List<ShowDTO> filterResults(Date functionDateFrom, Date functionDateTo, BigDecimal seatPriceFrom, BigDecimal seatPriceTo,
+            List<ShowDTO> listShowDTO) {
         var resultListShowDTO = new LinkedList<ShowDTO>();
 
         for (ShowDTO showDTO : listShowDTO) {
@@ -61,7 +110,6 @@ public class ShowCatalogServiceImpl implements ShowCatalogService {
             }
 
         }
-
         return resultListShowDTO;
     }
 

@@ -1,6 +1,9 @@
 package com.leacar21.technical.show.catalog.dto;
 
+import java.util.Comparator;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +23,25 @@ public class FunctionDTO {
     private boolean enabled;
 
     private AuditoriumFunctionLayoutDTO auditoriumFunctionLayout;
+
+    // ----------------
+
+    @JsonIgnore
+    public double getMinSectorPrice() {
+        var optionalSection = this.auditoriumFunctionLayout.getSections().stream().min(Comparator.comparing(SectionDTO::getSeatPrice));
+        if (optionalSection.isEmpty()) {
+            return 0;
+        }
+        return optionalSection.get().getSeatPrice().doubleValue();
+    }
+
+    @JsonIgnore
+    public double getMaxSectorPrice() {
+        var optionalSection = this.auditoriumFunctionLayout.getSections().stream().max(Comparator.comparing(SectionDTO::getSeatPrice));
+        if (optionalSection.isEmpty()) {
+            return 0;
+        }
+        return optionalSection.get().getSeatPrice().doubleValue();
+    }
 
 }
