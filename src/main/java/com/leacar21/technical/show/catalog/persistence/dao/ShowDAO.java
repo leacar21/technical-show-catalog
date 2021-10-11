@@ -19,8 +19,8 @@ public class ShowDAO {
 
     @Transactional(readOnly = true)
     public Show findByCode(UUID code) {
-        Optional<Show> optionalTheater = this.repository.findByCode(code);
-        return optionalTheater.isPresent() ? optionalTheater.get() : null;
+        Optional<Show> optionalShow = this.repository.findByCode(code);
+        return optionalShow.isPresent() ? optionalShow.get() : null;
     }
 
     @Transactional(readOnly = false)
