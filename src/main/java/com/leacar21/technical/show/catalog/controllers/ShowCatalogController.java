@@ -1,5 +1,6 @@
 package com.leacar21.technical.show.catalog.controllers;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -35,12 +36,13 @@ public class ShowCatalogController {
             @RequestParam(value = "enabled", required = false) Boolean enabled, //
             @RequestParam(value = "functionDateFrom", required = false) Date functionDateFrom, //
             @RequestParam(value = "functionDateTo", required = false) Date functionDateTo, //
-            @RequestParam(value = "seatPriceFrom", required = false) Date seatPriceFrom, //
-            @RequestParam(value = "seatPriceTo", required = false) Date seatPriceTo, //
+            @RequestParam(value = "seatPriceFrom", required = false) BigDecimal seatPriceFrom, //
+            @RequestParam(value = "seatPriceTo", required = false) BigDecimal seatPriceTo, //
             @RequestParam(value = "orderBy", required = false) ShowOrderBy orderBy, //
             @RequestParam(value = "orderDirection", required = false) OrderDirection orderDirection //
     ) {
-        return this.showCatalogService.getAll(enabled, functionDateFrom, functionDateTo);
+        return this.showCatalogService.getAll(enabled, functionDateFrom, functionDateTo, seatPriceFrom, seatPriceTo, orderBy,
+                orderDirection);
     }
 
     @PostMapping
