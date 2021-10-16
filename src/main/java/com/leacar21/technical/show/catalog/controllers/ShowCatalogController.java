@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -23,10 +21,10 @@ import com.leacar21.technical.show.catalog.dto.enums.ShowOrderBy;
 import com.leacar21.technical.show.catalog.services.ShowCatalogService;
 
 @RestController()
-@RequestMapping("shows")
+@RequestMapping(ShowCatalogController.SHOWS_RESOURCE)
 public class ShowCatalogController {
 
-    Logger log = LoggerFactory.getLogger(ShowCatalogController.class);
+    public static final String SHOWS_RESOURCE = "shows";
 
     @Autowired
     private ShowCatalogService showCatalogService;

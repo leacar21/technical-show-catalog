@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +19,10 @@ import com.leacar21.technical.show.catalog.dto.SectionSeatDTO;
 import com.leacar21.technical.show.catalog.services.SectionSeatService;
 
 @RestController()
-@RequestMapping("section-seats")
+@RequestMapping(SectionSeatController.SECTION_SEAT_RESOURCE)
 public class SectionSeatController {
 
-    Logger log = LoggerFactory.getLogger(SectionSeatController.class);
+    public static final String SECTION_SEAT_RESOURCE = "section-seats";
 
     @Autowired
     private SectionSeatService sectionSeatService;
