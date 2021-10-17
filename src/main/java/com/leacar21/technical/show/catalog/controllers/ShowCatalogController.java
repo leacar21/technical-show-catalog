@@ -24,7 +24,7 @@ import com.leacar21.technical.show.catalog.services.ShowCatalogService;
 @RequestMapping(ShowCatalogController.SHOWS_RESOURCE)
 public class ShowCatalogController {
 
-    public static final String SHOWS_RESOURCE = "shows";
+    public static final String SHOWS_RESOURCE = "/shows";
 
     @Autowired
     private ShowCatalogService showCatalogService;
@@ -45,7 +45,7 @@ public class ShowCatalogController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public ShowDTO create(@RequestBody(required = true) ShowDTO theaterDTO) {
         return this.showCatalogService.create(theaterDTO);
     }

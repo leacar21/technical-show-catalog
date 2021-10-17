@@ -22,7 +22,7 @@ import com.leacar21.technical.show.catalog.services.SectionSeatService;
 @RequestMapping(SectionSeatController.SECTION_SEAT_RESOURCE)
 public class SectionSeatController {
 
-    public static final String SECTION_SEAT_RESOURCE = "section-seats";
+    public static final String SECTION_SEAT_RESOURCE = "/section-seats";
 
     @Autowired
     private SectionSeatService sectionSeatService;
