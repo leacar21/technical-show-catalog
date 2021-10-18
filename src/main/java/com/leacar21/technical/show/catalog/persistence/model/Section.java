@@ -40,6 +40,6 @@ public class Section extends AbstractEntityJPA {
     private AuditoriumFunctionLayout auditoriumFunctionLayout;
 
     @OneToMany(mappedBy = "section")
-    private List<SectionSeat> sectionSeat;
+    private List<SectionSeat> sectionSeats;
 
 }
