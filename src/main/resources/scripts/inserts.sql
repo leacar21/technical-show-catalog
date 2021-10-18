@@ -31,9 +31,9 @@ INSERT INTO section (version, code, name, seat_price, auditorium_function_layout
 VALUES 
 ('0', UNHEX(replace(UUID(), '-', '')), "Sección A", 2000.00, 1),
 ('0', UNHEX(replace(UUID(), '-', '')), "Sección B", 1500.00, 1),
-('0', UNHEX(replace(UUID(), '-', '')), "Sección 1", 1000.00, 1),
+('0', UNHEX(replace(UUID(), '-', '')), "Sección 1", 1000.00, 2),
 ('0', UNHEX(replace(UUID(), '-', '')), "Sección 2", 750.00, 2),
-('0', UNHEX(replace(UUID(), '-', '')), "Sección 3", 500.00, 3),
+('0', UNHEX(replace(UUID(), '-', '')), "Sección 3", 500.00, 2),
 ('0', UNHEX(replace(UUID(), '-', '')), "General", 1200.00, 3);
 
 -- -------------------------------------------------------
