@@ -1,6 +1,8 @@
-CREATE SCHEMA IF NOT EXISTS `show` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- CREATE SCHEMA IF NOT EXISTS `show` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE `show`;
+-- USE `show`;
+
+USE `heroku_6d56ee4795241ec`;
 
 CREATE TABLE IF NOT EXISTS `show`
 (
