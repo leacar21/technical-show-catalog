@@ -53,9 +53,9 @@ public class ShowCatalogServiceImpl implements ShowCatalogService {
         for (ShowDTO showDTO : listShowDTO) {
 
             var resultShowDTO = ShowDTO.builder() //
-                    .code(showDTO.getCode()) //
-                    .enabled(showDTO.isEnabled()) //
-                    .name(showDTO.getName());
+                                       .code(showDTO.getCode()) //
+                                       .enabled(showDTO.isEnabled()) //
+                                       .name(showDTO.getName());
 
             var resultListFunctionDTO = new LinkedList<FunctionDTO>();
             for (FunctionDTO functionDTO : showDTO.getFunctions()) {
@@ -77,30 +77,41 @@ public class ShowCatalogServiceImpl implements ShowCatalogService {
     }
 
     private boolean satisfyDateFrom(Date functionDateFrom, FunctionDTO functionDTO) {
+        var functionDate = functionDTO.getDate();
         return (functionDateFrom == null) || //
-                functionDTO.getDate().equals(functionDateFrom) || //
-                functionDTO.getDate().after(functionDateFrom);
+                functionDate.equals(functionDateFrom) || //
+                functionDate.after(functionDateFrom);
     }
 
     private boolean satisfyDateTo(Date functionDateTo, FunctionDTO functionDTO) {
+        var functionDate = functionDTO.getDate();
         return (functionDateTo == null) || //
-                functionDTO.getDate().equals(functionDateTo) || //
-                functionDTO.getDate().before(functionDateTo);
+                functionDate.equals(functionDateTo) || //
+                functionDate.before(functionDateTo);
     }
 
     private boolean satisfyPriceFrom(BigDecimal seatPriceFrom, FunctionDTO functionDTO) {
-        return (seatPriceFrom == null) || functionDTO.getAuditoriumFunctionLayout().getSections().stream() //
-                .anyMatch(s -> s.getSeatPrice().compareTo(seatPriceFrom) >= 0);
+        return (seatPriceFrom == null) || functionDTO.getAuditoriumFunctionLayout()
+                                                     .getSections()
+                                                     .stream()
+                                                     .anyMatch(s -> s.getSeatPrice()
+                                                                     .compareTo(seatPriceFrom) >= 0);
     }
 
     private boolean satisfyPriceTo(BigDecimal seatPriceTo, FunctionDTO functionDTO) {
-        return (seatPriceTo == null) || functionDTO.getAuditoriumFunctionLayout().getSections().stream() //
-                .anyMatch(s -> s.getSeatPrice().compareTo(seatPriceTo) <= 0);
+        return (seatPriceTo == null) || functionDTO.getAuditoriumFunctionLayout()
+                                                   .getSections()
+                                                   .stream()
+                                                   .anyMatch(s -> s.getSeatPrice()
+                                                                   .compareTo(seatPriceTo) <= 0);
     }
 
     // =============================
 
     private List<ShowDTO> sortResults(ShowOrderBy orderBy, OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
+        if (orderBy == null) {
+            return listShowDTO;
+        }
         switch (orderBy) {
             case NAME:
                 return sortResultsByName(orderDirection, listShowDTO);
@@ -111,29 +122,45 @@ public class ShowCatalogServiceImpl implements ShowCatalogService {
             default:
                 return listShowDTO;
         }
+
     }
 
     private List<ShowDTO> sortResultsByName(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
         if (OrderDirection.DESC.equals(orderDirection)) {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getName).reversed()).collect(Collectors.toList());
+            return listShowDTO.stream()
+                              .sorted(Comparator.comparing(ShowDTO::getName)
+                                                .reversed())
+                              .collect(Collectors.toList());
         } else {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getName)).collect(Collectors.toList());
+            return listShowDTO.stream()
+                              .sorted(Comparator.comparing(ShowDTO::getName))
+                              .collect(Collectors.toList());
         }
     }
 
     private List<ShowDTO> sortResultsBySectionPrice(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
         if (OrderDirection.DESC.equals(orderDirection)) {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getMaxFunctionPrice).reversed()).collect(Collectors.toList());
+            return listShowDTO.stream()
+                              .sorted(Comparator.comparing(ShowDTO::getMaxFunctionPrice)
+                                                .reversed())
+                              .collect(Collectors.toList());
         } else {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getMinFunctionPrice)).collect(Collectors.toList());
+            return listShowDTO.stream()
+                              .sorted(Comparator.comparing(ShowDTO::getMinFunctionPrice))
+                              .collect(Collectors.toList());
         }
     }
 
     private List<ShowDTO> sortResultsByDate(OrderDirection orderDirection, List<ShowDTO> listShowDTO) {
         if (OrderDirection.DESC.equals(orderDirection)) {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getNextFunctionDate).reversed()).collect(Collectors.toList());
+            return listShowDTO.stream()
+                              .sorted(Comparator.comparing(ShowDTO::getNextFunctionDate)
+                                                .reversed())
+                              .collect(Collectors.toList());
         } else {
-            return listShowDTO.stream().sorted(Comparator.comparing(ShowDTO::getNextFunctionDate)).collect(Collectors.toList());
+            return listShowDTO.stream()
+                              .sorted(Comparator.comparing(ShowDTO::getNextFunctionDate))
+                              .collect(Collectors.toList());
         }
     }
 
