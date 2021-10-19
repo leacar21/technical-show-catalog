@@ -79,15 +79,15 @@ public class ShowCatalogServiceImpl implements ShowCatalogService {
     private boolean satisfyDateFrom(Date functionDateFrom, FunctionDTO functionDTO) {
         var functionDate = functionDTO.getDate();
         return (functionDateFrom == null) || //
-                functionDate.equals(functionDateFrom) || //
-                functionDate.after(functionDateFrom);
+                (functionDate.compareTo(functionDateFrom) == 0) || //
+                (functionDate.compareTo(functionDateFrom) > 0);
     }
 
     private boolean satisfyDateTo(Date functionDateTo, FunctionDTO functionDTO) {
         var functionDate = functionDTO.getDate();
         return (functionDateTo == null) || //
-                functionDate.equals(functionDateTo) || //
-                functionDate.before(functionDateTo);
+                (functionDate.compareTo(functionDateTo) == 0) || //
+                (functionDate.compareTo(functionDateTo) < 0);
     }
 
     private boolean satisfyPriceFrom(BigDecimal seatPriceFrom, FunctionDTO functionDTO) {
