@@ -11,7 +11,6 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.zalando.logbook.BodyFilter;
@@ -25,7 +24,6 @@ import com.leacar21.technical.show.catalog.config.serializers.BigDecimalSerializ
 import com.leacar21.technical.show.catalog.constants.BeanNames;
 
 @Configuration
-@EnableWebMvc
 public class MainConfig implements WebMvcConfigurer {
 
     @Bean
